@@ -7,6 +7,15 @@
 {% block javascripts %}
     {{ parent() }}
     
+    <script>
+        {% if currentCategoryId is defined %}
+            window.currentCategoryId = '{{ currentCategoryId|e('js') }}'; 
+        {% else %}
+            // we are in homepage
+            window.currentCategoryId = null;
+        {% endif %}
+    </script>
+    
     {{ encore_entry_script_tags('products') }}
 {% endblock %}
 
