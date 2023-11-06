@@ -9,7 +9,10 @@
                 </div>
             </div>
         </div>
-        <product-list :products="products" />
+        <product-list
+            :products="products"
+            :loading="loading"
+        />
         <div class="row">
             <legend-component :title="legend" />
         </div>
@@ -36,6 +39,7 @@ export default {
     data() {
         return {
             products: [],
+            loading: false,
             legend: 'Shipping takes 10-12 weeks, and products probably won\'t work',
         };
     },
@@ -44,9 +48,19 @@ export default {
         if (this.currentCategoryId) {
             params.category = this.currentCategoryId;
         }
-        const response = await axios.get('/api/products', {
-            params,
-        });
+
+        this.loading = true;
+
+        let response;
+        try {
+            response = await axios.get('/api/products', {
+                params,
+            });
+
+            this.loading = false;
+        } catch (e) {
+            this.loading = false;
+        }
 
         this.products = response.data['hydra:member'];
     },
