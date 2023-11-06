@@ -24,8 +24,8 @@
                 >
                     <a
                         :class="{
-                          'nav-link': true,
-                          'selected': category['@id'] === currentCategoryId,
+                            'nav-link': true,
+                            'selected': category['@id'] === currentCategoryId,
                         }"
                         :href="`/category/${category.id}`"
                     >
@@ -57,16 +57,15 @@ export default {
             type: Boolean,
             required: true,
         },
+        currentCategoryId: {
+            type: String,
+            default: null, // In homepage it will be null
+        },
     },
     data() {
         return {
             categories: [],
         };
-    },
-    computed: {
-        currentCategoryId() {
-            return window.currentCategoryId;
-        },
     },
     async created() {
         const response = await axios.get('/api/categories');
