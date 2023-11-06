@@ -27,6 +27,12 @@ export default {
         LegendComponent,
         ProductList,
     },
+    props: {
+        currentCategoryId: {
+            type: String,
+            default: null, // In homepage it will be null
+        },
+    },
     data() {
         return {
             products: [],
@@ -34,7 +40,13 @@ export default {
         };
     },
     async created() {
-        const response = await axios.get('/api/products');
+        const params = {};
+        if (this.currentCategoryId) {
+            params.category = this.currentCategoryId;
+        }
+        const response = await axios.get('/api/products', {
+            params,
+        });
 
         this.products = response.data['hydra:member'];
     },
