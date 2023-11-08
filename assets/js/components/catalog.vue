@@ -2,11 +2,14 @@
     <div>
         <div class="col-xs-12 col-9">
             <div class="row">
-                <div class="col-12">
+                <div class="col-3">
                     <title-component
                         :current-category-id="currentCategoryId"
                         :categories="categories"
                     />
+                </div>
+                <div class="col-9">
+                    <search-bar />
                 </div>
             </div>
         </div>
@@ -25,10 +28,12 @@ import LegendComponent from '@/components/legend';
 import ProductList from '@/components/product-list';
 import { fetchProducts } from '@/services/products-service';
 import TitleComponent from '@/components/title';
+import SearchBar from '@/components/search-bar';
 
 export default {
     name: 'Catalog',
     components: {
+        SearchBar,
         LegendComponent,
         ProductList,
         TitleComponent,
